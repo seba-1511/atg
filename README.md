@@ -2,7 +2,7 @@
 
 --------------------------------------------------------------------------------
 
-[![Build Status](https://travis-ci.com/seba-1511/mypackage.svg?branch=master)](https://travis-ci.com/seba-1511/mypackage)
+[![arXiv](https://img.shields.io/badge/arXiv-2101.XXXXX-b31b1b.svg)](https://arxiv.org/abs/2101.XXXXX)
 
 Code Release for "Embedding Adaptation is Still Needed for Few-Shot Learning"
 

@@ -7,7 +7,7 @@ from setuptools import (
         )
 
 # Parses version number: https://stackoverflow.com/a/7071358
-VERSIONFILE = 'mypackage/_version.py'
+VERSIONFILE = 'atgtasks/_version.py'
 verstrline = open(VERSIONFILE, "rt").read()
 VSRE = r"^__version__ = ['\"]([^'\"]*)['\"]"
 mo = re.search(VSRE, verstrline, re.M)
@@ -18,16 +18,16 @@ else:
 
 # Installs the package
 setup(
-    name='mypackage',
+    name='atgtasks',
     packages=find_packages(),
     version=VERSION,
-    description='Description of my super mypackage.',
+    description='Embedding Adaptation is Still Needed for Few-Shot Learning',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
     author='Seb Arnold',
     author_email='smr.arnold@gmail.com',
-    url='https://learnables.github.com/mypackage',
-    download_url='https://github.com/seba-1511/mypackage/archive/' + str(VERSION) + '.zip',
+    url='https://seba1511.net/projects/atg',
+    download_url='https://github.com/seba-1511/atgtasks/archive/' + str(VERSION) + '.zip',
     license='License :: OSI Approved :: Apache Software License',
     classifiers=[],
     scripts=[],

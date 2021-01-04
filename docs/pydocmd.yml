@@ -1,13 +1,13 @@
-site_name: "mypackage"
+site_name: "atgtasks"
 
 # This tells pydocmd which pages to generate from which Python modules,
 # functions and classes. At the first level is the page name, below that
 # is a tree of Python member names (modules, classes, etc.) that should be
 # documented. Higher indentation leads to smaller header size.
 generate:
-  - docs/mypackage.md:
-      - mypackage:
-          - mypackage.utils++
+  - docs/atgtasks.md:
+      - atgtasks:
+          - atgtasks.utils++
 
 # MkDocs pages configuration. The `<<` operator is sugar added by pydocmd
 # that allows you to use an external Markdown file (eg. your project's README)
@@ -16,10 +16,10 @@ generate:
 pages:
   - Home: index.md << ../README.md
   - Documentation:
-      - mypackage: docs/mypackage.md
+      - atgtasks: docs/atgtasks.md
   - Examples: examples.vision.md << ../examples/vision/README.md
   - Changelog: changelog.md << ../CHANGELOG.md
-  - GitHub: https://github.com/seba-1511/mypackage/
+  - GitHub: https://github.com/seba-1511/atgtasks/
 
 
 # These options all show off their default values. You don't have to add
@@ -27,11 +27,11 @@ pages:
 docs_dir: source
 gens_dir: _build/pydocmd     # This will end up as the MkDocs 'docs_dir'
 site_dir: _build/site
-site_url: http://mypackage.net
+site_url: http://atgtasks.net
 site_author: Séb Arnold
 google_analytics: ['UA-68693545-3', 'seba-1511.github.com']
-repo_name: 'seba-1511/mypackage'
-repo_url: 'https://github.com/seba-1511/mypackage'
+repo_name: 'seba-1511/atg'
+repo_url: 'https://github.com/seba-1511/atg'
 
 theme:
   name: 'material'
