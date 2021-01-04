@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
 
+import os
 import random
-import learn2learn as l2l
+import torch
 import torchvision as tv
+import learn2learn as l2l
 
 from .splits_definitions import _ALL_SPLITS
+from .lfw10 import LabelledFacesInWild
 
 
-def get_full_dataset(dataset, root):
-    if dataset == 'mini-imagenet':
+def get_full_dataset(name, root):
+    if name == 'mini-imagenet':
         data_transforms = tv.transforms.Compose([
             lambda x: x / 255.0,
         ])
@@ -28,6 +31,96 @@ def get_full_dataset(dataset, root):
         valid = l2l.data.MetaDataset(valid)
         test = l2l.data.MetaDataset(test)
         dataset = l2l.data.UnionMetaDataset((train, valid, test))
+    elif name == 'tiered-imagenet':
+        data_transforms = tv.transforms.Compose([
+            tv.transforms.ToTensor(),
+        ])
+        train = l2l.vision.datasets.TieredImagenet(
+            root=root,
+            transform=data_transforms,
+            download=True,
+            mode='train',
+        )
+        valid = l2l.vision.datasets.TieredImagenet(
+            root=root,
+            transform=data_transforms,
+            download=True,
+            mode='validation',
+        )
+        test = l2l.vision.datasets.TieredImagenet(
+            root=root,
+            transform=data_transforms,
+            download=True,
+            mode='test',
+        )
+        train = l2l.data.MetaDataset(train)
+        valid = l2l.data.MetaDataset(valid)
+        test = l2l.data.MetaDataset(test)
+        dataset = l2l.data.UnionMetaDataset((train, valid, test))
+    elif name == 'emnist':
+        data_transform = tv.transforms.Compose([
+            tv.transforms.ToTensor(),
+        ])
+        train_set = tv.datasets.EMNIST(
+            root=root,
+            split='byclass',
+            download=True,
+            train=True,
+            transform=data_transform,
+        )
+        test_set = tv.datasets.EMNIST(
+            root=root,
+            split='byclass',
+            download=True,
+            train=False,
+            transform=data_transform,
+        )
+        dataset = torch.utils.data.ConcatDataset((train_set, test_set))
+        dataset._bookkeeping_path = os.path.join(root, 'emnist-bookkeeping.pkl')
+        dataset = l2l.data.MetaDataset(dataset)
+    elif name == 'lfw10':
+        data_transform = tv.transforms.Compose([
+            tv.transforms.Normalize(
+                mean=[0., 0., 0.],
+                std=[.5, .5, .5],
+            ),
+        ])
+        dataset = LabelledFacesInWild(
+            root=root,
+            transform=data_transform,
+            min_faces=10,
+            download=True,
+        )
+        dataset._bookkeeping_path = os.path.join(root, 'lfw10-bookkeeping.pkl')
+        dataset = l2l.data.MetaDataset(dataset)
+    elif name == 'cifar100':
+        data_transform = tv.transforms.Compose([
+            tv.transforms.ToTensor(),
+            tv.transforms.Normalize(
+                (0.4914, 0.4822, 0.4465),
+                (0.2023, 0.1994, 0.2010)
+            ),
+        ])
+        train = tv.datasets.CIFAR100(
+            root=root,
+            download=True,
+            train=True,
+            transform=data_transform,
+        )
+        test = tv.datasets.CIFAR100(
+            root=root,
+            download=True,
+            train=False,
+            transform=data_transform,
+        )
+        dataset = torch.utils.data.ConcatDataset((train, test))
+        dataset._bookkeeping_path = os.path.join(
+            root,
+            'cifar100-bookkeeping.pkl',
+        )
+        dataset = l2l.data.MetaDataset(dataset)
+    else:
+        raise f'Dataset {name} not supported'
     return dataset
 
 
