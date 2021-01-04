@@ -14,6 +14,7 @@ from learn2learn.algorithms import (
     LightningANIL,
 )
 from learn2learn.utils.lightning import EpisodicBatcher
+import atgtasks
 
 
 def main():
@@ -28,7 +29,7 @@ def main():
     # add script-specific args
     parser.add_argument("--algorithm", type=str, default="protonet")
     parser.add_argument("--dataset", type=str, default="mini-imagenet")
-    parser.add_argument("--taskset", type=str, default="d96")
+    parser.add_argument("--taskset", type=str, default="random42")
     parser.add_argument("--root", type=str, default="~/data")
     parser.add_argument("--meta_batch_size", type=int, default=16)
     parser.add_argument("--seed", type=int, default=42)
@@ -38,18 +39,14 @@ def main():
     pl.seed_everything(args.seed)
 
     # Create tasksets using the benchmark interface
-    if False and args.dataset in ["mini-imagenet", "tiered-imagenet"]:
-        data_augmentation = "lee2019"
-    else:
-        data_augmentation = "normalize"
-    tasksets = l2l.vision.benchmarks.get_tasksets(
+    tasksets = atgtasks.get_tasksets(
         name=args.dataset,
+        taskset=args.taskset,
         train_samples=args.train_queries + args.train_shots,
         train_ways=args.train_ways,
         test_samples=args.test_queries + args.test_shots,
         test_ways=args.test_ways,
         root=args.root,
-        data_augmentation=data_augmentation,
     )
     episodic_data = EpisodicBatcher(
         tasksets.train,

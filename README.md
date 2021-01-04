@@ -17,13 +17,26 @@ Please cite this work as follows:
 
 > "Embedding Adaptation is Still Needed for Few-Shot Learning", Sébastien M. R. Arnold and Fei Sha
 
+or with the following BibTex entry:
+
 ~~~bibtex
 @article{arnold2021embedding,
     title={Embedding Adaptation is Still Needed for Few-Shot Learning},
-    author={Sebastien M. R. Arnold,
-            Fei Sha},
+    author={Sebastien M. R. Arnold, Fei Sha},
     year={2021},
     archivePrefix={arXiv},
     primaryClass={cs.LG}
 }
 ~~~
+
+## Usage
+
+~~~bash
+python examples/train.py --algorithm='protonet' --dataset='mini-imagenet' --taskset='original'
+~~~
+
+where
+
+* `taskset` takes values `easy`, `medium-easy`, `medium-hard`, `hard` or `randomX` where `X` is the seed to reproduce random splits.
+* `dataset` takes values `mini-imagenet`, `tiered-imagenet`, `emnist`, `lfw10`, `cifar100`.
+* `algorithm` takes values ``, ``, ``, ``, ``, ``.
