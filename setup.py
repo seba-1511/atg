@@ -33,5 +33,7 @@ setup(
     scripts=[],
     install_requires=[
         # Add requirements here
+        'torch>=1.3.0',
+        'learn2learn>=0.1.5',
     ],
 )

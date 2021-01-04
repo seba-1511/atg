@@ -10,3 +10,20 @@ This code provides:
 
 * Loaders for the dataset splits introduced in the paper.
 * Demonstration code for training the algorithms, borrowed from [learn2learn](https://github.com/learnables/learn2learn).
+
+## Citation
+
+Please cite this work as follows:
+
+> "Embedding Adaptation is Still Needed for Few-Shot Learning", Sébastien M. R. Arnold and Fei Sha
+
+~~~bibtex
+@article{arnold2021embedding,
+    title={Embedding Adaptation is Still Needed for Few-Shot Learning},
+    author={Sebastien M. R. Arnold,
+            Fei Sha},
+    year={2021},
+    archivePrefix={arXiv},
+    primaryClass={cs.LG}
+}
+~~~
