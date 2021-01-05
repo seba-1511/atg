@@ -76,7 +76,7 @@ def get_full_dataset(name, root):
             transform=data_transform,
         )
         dataset = torch.utils.data.ConcatDataset((train_set, test_set))
-        dataset._bookkeeping_path = os.path.join(root, 'emnist-bookkeeping.pkl')
+        dataset._bookkeeping_path = os.path.join(root, 'atg-emnist-bookkeeping.pkl')
         dataset = l2l.data.MetaDataset(dataset)
     elif name == 'lfw10':
         data_transform = tv.transforms.Compose([
@@ -91,7 +91,7 @@ def get_full_dataset(name, root):
             min_faces=10,
             download=True,
         )
-        dataset._bookkeeping_path = os.path.join(root, 'lfw10-bookkeeping.pkl')
+        dataset._bookkeeping_path = os.path.join(root, 'atg-lfw10-bookkeeping.pkl')
         dataset = l2l.data.MetaDataset(dataset)
     elif name == 'cifar100':
         data_transform = tv.transforms.Compose([
@@ -114,10 +114,10 @@ def get_full_dataset(name, root):
             transform=data_transform,
         )
         dataset = torch.utils.data.ConcatDataset((train, test))
-#        dataset._bookkeeping_path = os.path.join(
-#            root,
-#            'cifar100-bookkeeping.pkl',
-#        )
+        dataset._bookkeeping_path = os.path.join(
+            root,
+            'atg-cifar100-bookkeeping.pkl',
+        )
         dataset = l2l.data.MetaDataset(dataset)
     else:
         raise f'Dataset {name} not supported'
@@ -136,6 +136,8 @@ def get_tasksets(
     device=None,
     **kwargs,
 ):
+    root = os.path.expanduser(root)
+
     # load the full datasets
     dataset = get_full_dataset(name, root)
 

@@ -67,6 +67,7 @@ def main():
     elif args.dataset in ["emnist", ]:
         model = l2l.vision.models.CNN4(
             output_size=args.train_ways,
+            channels=1,
             hidden_size=64,
             embedding_size=64,
         )
