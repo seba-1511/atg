@@ -114,10 +114,10 @@ def get_full_dataset(name, root):
             transform=data_transform,
         )
         dataset = torch.utils.data.ConcatDataset((train, test))
-        dataset._bookkeeping_path = os.path.join(
-            root,
-            'cifar100-bookkeeping.pkl',
-        )
+#        dataset._bookkeeping_path = os.path.join(
+#            root,
+#            'cifar100-bookkeeping.pkl',
+#        )
         dataset = l2l.data.MetaDataset(dataset)
     else:
         raise f'Dataset {name} not supported'
@@ -161,32 +161,36 @@ def get_tasksets(
     # Instantiate Tasksets and transforms
     train_dataset = l2l.data.FilteredMetaDataset(dataset, train_classes)
     train_transforms = [
-        l2l.data.FusedNWaysKShots(train_dataset, n=train_ways, k=train_samples),
-        l2l.data.LoadData(train_dataset),
-        l2l.data.RemapLabels(train_dataset),
-        l2l.data.ConsecutiveLabels(train_dataset),
+        l2l.data.transforms.FusedNWaysKShots(train_dataset, n=train_ways, k=train_samples),
+        l2l.data.transforms.LoadData(train_dataset),
+        l2l.data.transforms.RemapLabels(train_dataset),
+        l2l.data.transforms.ConsecutiveLabels(train_dataset),
     ]
     train_tasks = l2l.data.TaskDataset(train_dataset,
                                        task_transforms=train_transforms,
                                        num_tasks=num_tasks)
     valid_dataset = l2l.data.FilteredMetaDataset(dataset, valid_classes)
     valid_transforms = [
-        l2l.data.FusedNWaysKShots(valid_dataset, n=test_ways, k=test_samples),
-        l2l.data.LoadData(valid_dataset),
-        l2l.data.RemapLabels(valid_dataset),
-        l2l.data.ConsecutiveLabels(valid_dataset),
+        l2l.data.transforms.FusedNWaysKShots(valid_dataset, n=test_ways, k=test_samples),
+        l2l.data.transforms.LoadData(valid_dataset),
+        l2l.data.transforms.RemapLabels(valid_dataset),
+        l2l.data.transforms.ConsecutiveLabels(valid_dataset),
     ]
     valid_tasks = l2l.data.TaskDataset(valid_dataset,
                                        task_transforms=valid_transforms,
                                        num_tasks=num_tasks)
     test_dataset = l2l.data.FilteredMetaDataset(dataset, test_classes)
     test_transforms = [
-        l2l.data.FusedNWaysKShots(test_dataset, n=test_ways, k=test_samples),
-        l2l.data.LoadData(test_dataset),
-        l2l.data.RemapLabels(test_dataset),
-        l2l.data.ConsecutiveLabels(test_dataset),
+        l2l.data.transforms.FusedNWaysKShots(test_dataset, n=test_ways, k=test_samples),
+        l2l.data.transforms.LoadData(test_dataset),
+        l2l.data.transforms.RemapLabels(test_dataset),
+        l2l.data.transforms.ConsecutiveLabels(test_dataset),
     ]
     test_tasks = l2l.data.TaskDataset(test_dataset,
                                       task_transforms=test_transforms,
                                       num_tasks=num_tasks)
-    return train_tasks, valid_tasks, test_tasks
+    return l2l.vision.benchmarks.BenchmarkTasksets(
+        train_tasks,
+        valid_tasks,
+        test_tasks
+    )

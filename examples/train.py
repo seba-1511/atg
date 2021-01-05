@@ -58,6 +58,18 @@ def main():
     # init model
     if args.dataset in ["mini-imagenet", "tiered-imagenet"]:
         model = l2l.vision.models.ResNet12(output_size=args.train_ways)
+    elif args.dataset in ["lfw10", ]:
+        model = l2l.vision.models.CNN4(
+            output_size=args.train_ways,
+            hidden_size=64,
+            embedding_size=64*6,
+        )
+    elif args.dataset in ["emnist", ]:
+        model = l2l.vision.models.CNN4(
+            output_size=args.train_ways,
+            hidden_size=64,
+            embedding_size=64,
+        )
     else:  # CIFAR-FS, FC100
         model = l2l.vision.models.CNN4(
             output_size=args.train_ways,

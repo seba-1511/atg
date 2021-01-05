@@ -6,6 +6,7 @@ Code Release for "Embedding Adaptation is Still Needed for Few-Shot Learning"
 
 This code provides:
 
+* Re-implementation of the ATG algorithm in `examples/atg.py`.
 * Loaders for the dataset splits introduced in the paper.
 * Demonstration code for training the algorithms, borrowed from [learn2learn](https://github.com/learnables/learn2learn).
 
