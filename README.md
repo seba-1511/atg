@@ -12,9 +12,9 @@ This code provides:
 
 ## Resources
 
-* Website:
-* Preprint:
-* Code:
+* Website: [seba1511.net/projects/atg](seba1511.net/projects/atg)
+* Preprint: [arxiv.org/abs/2101.XXXXX](https://arxiv.org/abs/2101.XXXXX)
+* Code: [github.com/Sha-Lab/atg](https://github.com/Sha-Lab/atg)
 
 ## Citation
 
@@ -36,6 +36,28 @@ or with the following BibTex entry:
 
 ## Usage
 
+Dependencies include the following Python packages:
+
+* PyTorch>=1.3.0
+* torchvision>=0.5.0
+* scikit-learn>=0.19.2
+* tqdm>=4.48.2
+* learn2learn on the master branch
+
+File descriptions:
+
+* `atg.py`: Standalone example implementation of ATG.
+
+### Running ATG
+
+A re-implementation of ATG is provided in `examples/atg.py`. To run it on a synthetic dataset:
+
+```bash
+python examples/atg.py
+```
+
+### Training on ATG Partitions
+
 ~~~bash
 python examples/train.py --algorithm='protonet' --dataset='mini-imagenet' --taskset='original'
 ~~~
@@ -44,6 +66,6 @@ where
 
 * `taskset` takes values `easy`, `medium-easy`, `medium-hard`, `hard` or `randomX` where `X` is the seed to reproduce random splits.
 * `dataset` takes values `mini-imagenet`, `tiered-imagenet`, `emnist`, `lfw10`, `cifar100`.
-* `algorithm` takes values ``, ``, ``, ``, ``, ``.
+* `algorithm` takes values `protonet`, `maml`, `anil`.
 
 For more help on the interface, run: `python examples/train.py --help`.
