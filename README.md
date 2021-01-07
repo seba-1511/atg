@@ -44,13 +44,9 @@ Dependencies include the following Python packages:
 * tqdm>=4.48.2
 * learn2learn on the master branch
 
-File descriptions:
-
-* `atg.py`: Standalone example implementation of ATG.
-
 ### Running ATG
 
-A re-implementation of ATG is provided in `examples/atg.py`. To run it on a synthetic dataset:
+A standalone re-implementation of ATG is provided in `examples/atg.py`. To run it on a synthetic dataset:
 
 ```bash
 python examples/atg.py
